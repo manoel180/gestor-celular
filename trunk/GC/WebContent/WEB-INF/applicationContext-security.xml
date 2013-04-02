@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
+		<property name="defaultLocale" value="pt_BR" />
+	</bean>
+
+	<sec:http auto-config="true" access-denied-page="/negado.jsp">
+		<sec:form-login login-page="/pages/login/paginas/login.jsf"
+			authentication-failure-url="/pages/login/paginas/login.jsf?erro=invalido" />
+		<sec:intercept-url pattern="/pages/**" access="ROLE_Celular" />
+		<sec:intercept-url pattern="/pages/login/paginas/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	</sec:http>
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service data-source-ref="myDataSource"
+				users-by-username-query="SELECT idUsuarios, senha, 'true' as enable FROM Usuarios WHERE login=?"
+				authorities-by-username-query="SELECT p.usuario, m.nome FROM Perfis_Modulos as PM inner join Modulos as m on m.idModulos = modulo inner join Usuarios_Perfis as p on PM.perfil=p.perfil inner join Usuarios as u on u.idUsuarios = p.usuario WHERE p.usuario=?" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+</beans>

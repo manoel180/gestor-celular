@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext">
+	
+<p:dialog header="ESQUECI A SENHA!!!" underlay="shadow" visible="none"
+		position="center" modal="true" effect="fade" fixedCenter="true" resizable="false"
+		widgetVar="dlg" width="380" height="200">
+			<h:panelGrid columns="2" cellspacing="5">
+				<h:outputLabel value="SEU CPF:" styleClass="Texto_cpf_login" />
+				<p:inputMask id="cpfMaskDialog" validatorMessage="CPF"
+					mask="999.999.999-99" size="20"
+					maxlength="14" required="true" />
+
+				<h:outputLabel value="SEU EMAIL:" styleClass="Texto_cpf_login"
+					for="emailTxtDialog" />
+				<h:inputText id="emailTxtDialog" 
+					size="20" autocomplete="off" styleClass="formularios"
+					validatorMessage="Email invalido" required="true">
+					<f:attribute name="fieldRef" value="EMAIL:" />
+					<mj:regexValidator pattern=".+@.+\.[a-z]+" />
+				</h:inputText>
+			</h:panelGrid>
+			<br />
+			<h:commandButton value="Enviar" />
+	</p:dialog>
+	</ui:composition>
