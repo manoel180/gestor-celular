@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+		     http://www.springframework.org/schema/beans 
+		     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		     http://www.springframework.org/schema/context
+		     http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		     http://www.springframework.org/schema/tx
+		     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		     http://www.springframework.org/schema/aop 
+		     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<context:annotation-config />
+	<tx:annotation-driven transaction-manager="txManager" />
+	<context:component-scan base-package="br.com.gc.*" />
+	
+	<!-- Gerenciador de transacoes baseado em JPA -->
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- banco desenv -->
+	 <!-- <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	<property name="url" value="jdbc:mysql://localhost/gestaoCelular" />
+	<property name="username" value="root" />
+	<property name="password" value="123" />
+    </bean> -->
+	<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/gestaoCelular" />
+		<property name="user" value="root" />
+		<property name="password" value="123" />
+		<property name="initialPoolSize" value="20" />
+ 		<property name="minPoolSize" value="20" />
+ 		<property name="maxPoolSize" value="20" />
+ 		<property name="idleConnectionTestPeriod" value="500" /> 		
+ 		<property name="acquireIncrement" value="1" />
+ 		<property name="maxStatements" value="1000" /> 		 		
+ 		<property name="numHelperThreads" value="1" />
+ 		<property name="maxIdleTime" value="5"></property> 
+	</bean>
+	
+	<!-- Fabrica de entity managers --> 
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="persistenceUnitName" value="GC" />				
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="false" />
+ 				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />				
+			</bean>
+		</property>  		
+	</bean>
+	
+	<!-- <bean id="myAspect" class="br.com.jade.util.BusinessInterceptor"/> -->
+	
+</beans>

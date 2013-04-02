@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view locale="#{localeController.currentLocale}">
+
+	<h:head>
+		<title>#{msgSistema.lblTitulo}</title>
+
+		<h:outputStylesheet name="estilo_login.css" library="css" />
+
+	</h:head>
+	<h:body>
+	
+				<center>
+		<h:form id="form" prependId="false" >
+			<p:focus />
+			<div class="box login">
+				<p:graphicImage library="imgs"
+					name="logo_#{localeController.currentLocale}.jpg"
+					width="380" height="250" />
+				<p:growl id="msg" sticky="true" showDetail="true"
+					showSummary="false" />
+
+				<div class="barraLogin">
+					<h:outputLabel value="#{msgLogin.lblLogin}:" styleClass="label" />
+					<h:inputText id="maskCPF" styleClass="input" size="15"
+						value="#{mBeanLogin.login}"
+						required="true" requiredMessage="#{msgLogin.lblLogin} é obrigatório" />
+					<h:outputLabel value="#{msgLogin.lblSenha}:" styleClass="label" />
+					<h:inputSecret id="senhaSecret" styleClass="input"
+						value="#{mBeanLogin.senha}"
+						maxlength="14" size="15" required="true"
+						requiredMessage="#{msgLogin.lblSenha} é obrigatória" />
+					<p:spacer width="5"/>	
+					<p:commandButton styleClass="botao" action="#{mBeanLogin.logar}" value="#{msgSistema.lblEntrar}..." ajax="false" />
+				</div>
+			</div>
+			
+			<footer>
+				<div class="rodapeEsq">	
+					<p:commandLink    onclick="dlg.show()" process="@this" ajax="true" > 
+						<p:graphicImage library="imgs" name="help.png"  />
+						<h:outputLabel value="#{msgLogin.lblEsqueceuSenha}" styleClass="labelRodape"/>
+					</p:commandLink>
+					<p:spacer width="10px"/>
+					<p:graphicImage library="imgs" name="cadeado.png"  /> 
+					<h:outputLabel value="#{msgLogin.lblSistemaSeguro}" styleClass="labelRodape"/>
+					
+				</div>
+				<div class="rodapeDir"> 
+					<p:commandLink title="#{msgSistema.lblPortugues}" action="#{localeController.portugueseLocale}"
+						process="@this" update="@form">
+						<p:graphicImage library="imgs" name="br.png"  />
+					</p:commandLink> 
+					<p:commandLink title="#{msgSistema.lblIngles}" action="#{localeController.englishLocale}" 
+						process="@this" update="@form">
+						<p:graphicImage library="imgs" name="us.png"  />
+					</p:commandLink>
+					<p:commandLink title="#{msgSistema.lblEspanhol}" action="#{localeController.spainLocale}" 
+						process="@this" update="@form">
+						<p:graphicImage library="imgs" name="es.png"  />
+					</p:commandLink>
+				</div>
+			</footer>
+
+		</h:form>
+	</center>
+
+		<ui:include src="/pages/login/popups/popupEsqueciSenha.xhtml" />
+	</h:body>
+
+</f:view>
+</html>
