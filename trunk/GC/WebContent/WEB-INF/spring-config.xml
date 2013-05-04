@@ -25,17 +25,12 @@
 	</bean>
 
 	<!-- banco desenv -->
-	 <!-- <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-	<property name="url" value="jdbc:mysql://localhost/gestaoCelular" />
-	<property name="username" value="root" />
-	<property name="password" value="123" />
-    </bean> -->
+	 
 	<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/gestaoCelular" />
-		<property name="user" value="root" />
-		<property name="password" value="123" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/gestorce_db" />
+		<property name="user" value="gestorce_dba" />
+		<property name="password" value="gestorce" />
 		<property name="initialPoolSize" value="20" />
  		<property name="minPoolSize" value="20" />
  		<property name="maxPoolSize" value="20" />
@@ -53,7 +48,7 @@
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true" />
-				<property name="generateDdl" value="false" />
+				<property name="generateDdl" value="true" />
  				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />				
 			</bean>
 		</property>  		
