@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD
+XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<p:menubar autoSubmenuDisplay="true">
+			<p:menuitem value="PRINCIPAL" ajax="false" />
+
+			<p:submenu label="CADASTRAR" align="left">
+					<p:menuitem value="Discípulos" ajax="false" url="/pages/modCelular/discipulos/discipulos.jsf"/>
+
+				<p:submenu label="Célula">
+					<p:menuitem value="Nova Célula" />
+					<p:menuitem value="Listar Célula" />
+				</p:submenu>
+
+				<p:submenu label="Bases">
+					<p:menuitem value="Nova Base" action="#{basesBean.prepararBases}"
+						ajax="false" />
+					<p:menuitem value="Listar Bases" ajax="false" />
+				</p:submenu>
+			</p:submenu>
+
+			<p:submenu label="FINANCEIRO" align="left">
+				<p:menuitem value="Ver Árvore de Repasses" ajax="false" />
+				<p:menuitem value="Fazer Repasse" ajax="false" />
+				<p:menuitem value="Receber Repasse" ajax="false" />
+				<p:submenu>
+					<f:facet name="label">
+						<p:menuitem value="&nbsp;Listar Repasses &nbsp;" />
+					</f:facet>
+					<p:menuitem value="Recebidos"
+						action="#{repasseBean.prepararListarRepasseRecebidos}"
+						rendered="#{loginBean.menuListarRecebidos}" ajax="false" />
+					<p:menuitem value="Enviados"
+						action="#{repasseBean.prepararListarRepasseEnviados}"
+						rendered="#{loginBean.menuListarEnviados}" ajax="false" />
+				</p:submenu>
+			</p:submenu>
+
+			<p:submenu label="RELATÓRIOS">
+				<p:menuitem value="Gerações Cadastradas"
+					action="#{relatoriosBean.prepararRelatorioGeracoesCadastradas}"
+					ajax="false" />
+			</p:submenu>
+
+			<p:submenu label="EVENTOS">
+				<p:submenu label="Encontros">
+					<p:submenu label="Encontro com Deus">
+						<p:submenu label="Pré-Encontro">
+							<p:menuitem value="&nbsp;Listar Pré-Encontro com Deus&nbsp;"
+								ajax="false" />
+							<p:menuitem value="&nbsp;Listar Pós-Encontro com Deus&nbsp;"
+								ajax="false" />
+						</p:submenu>
+					</p:submenu>
+				</p:submenu>
+				<p:menuitem value="&nbsp;Batismos nas Águas&nbsp;" ajax="false" />
+			</p:submenu>
+
+			<p:submenu label="ESCOLA DE LÍDERES">
+				<p:menuitem value="&nbsp; Abrir Escola&nbsp;" ajax="false" />
+				<p:menuitem value="&nbsp; Lançar Notas&nbsp;" ajax="false" />
+			</p:submenu>
+
+			<p:submenu label="MENSAGENS">
+				<p:menuitem action="#{mensagemBean.prepararMensagem}"
+					value="&nbsp;Enviar Mensagem&nbsp;" ajax="false" />
+				<p:menuitem action="#{mensagemBean.caixaEntrada}"
+					value="&nbsp;Caixa Entrada&nbsp;" ajax="false" />
+				<p:menuitem action="#{mensagemBean.caixaSaida}"
+					value="&nbsp;Caixa Saída&nbsp;" ajax="false" />
+			</p:submenu>
+
+				<p:menuitem url="/GC/j_spring_security_logout" value="Sair" />
+		</p:menubar>
+
+	</h:form>
+</ui:composition>
