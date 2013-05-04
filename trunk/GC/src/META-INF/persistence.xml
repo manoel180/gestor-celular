@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="1.0"
+<persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="GC" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- Segurança -->
 		<class>br.com.gc.seguranca.entity.Usuario</class>
+		<class>br.com.gc.seguranca.entity.Modulos</class>
+		<class>br.com.gc.modCelular.entity.Discipulos</class>
+		<class>br.com.gc.modCelular.entity.EstadoCivil</class>
+		<class>br.com.gc.modCelular.entity.FuncaoEclesiasticas</class>
+		<class>br.com.gc.modCelular.entity.FormacaoAcademica</class>
+		<class>br.com.gc.modCelular.entity.Geracoes</class>
+		<class>br.com.gc.modCelular.entity.Igrejas</class>
 
 		<!-- CADASTRO -->
-
-
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
