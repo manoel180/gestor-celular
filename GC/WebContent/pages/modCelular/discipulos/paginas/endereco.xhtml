@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+	<h:panelGrid columns="4" id="pnlEndereco"
+		columnClasses="coluna1, coluna2, coluna1, coluna2">
+		<h:outputLabel value="CEP:" styleClass="formulariosObrigatorio"
+			for="cep" />
+
+		<h:inputText id="cep" size="20" tabindex="10"
+			requiredMessage="CEP é obrigatório"
+			value="#{discipuloBean.logradouro.cep}" maxlength="8"
+			styleClass="formularios2" required="true">
+			<p:watermark value="Somente Números" for="cep" />
+			<f:ajax render="tipo end cidade bairro estado num complemento"
+				execute="@this" event="change" listener="#{discipuloBean.buscarCEP}" />
+		</h:inputText>
+		<h:outputText />
+		<h:outputLink
+			value="http://www.buscacep.correios.com.br/servicos/dnec/menuAction.do?Metodo=menuEndereco"
+			target="_blank">
+			<h:graphicImage value="/img/busca_cep.jpg" />
+		</h:outputLink>
+
+		<h:outputLabel value="Tipo:" styleClass="formulariosObrigatorio"
+			for="tipo" />
+		<h:inputText id="tipo" styleClass="formularios2" required="true"
+			value="#{discipuloBean.logradouro.logTipoLogradouro}" size="20"
+			readonly="true" />
+		<h:outputLabel value="Endereço:" styleClass="formulariosObrigatorio"
+			for="end" />
+		<h:inputText id="end" value="#{discipuloBean.logradouro.logNo}"
+			required="true" styleClass="formularios2" size="30" readonly="true" />
+		<h:outputLabel value="Número:" styleClass="Texto_cpf_login" for="num" />
+		<p:inputMask mask="?9999" id="num" maxlength="4" tabindex="11"
+			size="4" styleClass="formularios2"
+			value="#{discipuloBean.discipulos.disEndNumero}">
+		</p:inputMask>
+		<h:outputLabel value="Complemento:" styleClass="Texto_cpf_login"
+			for="complemento" />
+		<h:inputText id="complemento" maxlength="100" size="30"
+			styleClass="formularios2" tabindex="12"
+			value="#{discipuloBean.discipulos.disEndComplemento}" />
+		<h:outputLabel value="Bairro:" styleClass="formulariosObrigatorio"
+			for="bairro" />
+		<h:inputText id="bairro" styleClass="formularios2" required="true"
+			value="#{discipuloBean.logradouro.bairro.baiNo}" readonly="true" />
+		<h:outputLabel value="Cidade:" styleClass="formulariosObrigatorio"
+			for="cidade" />
+		<h:inputText id="cidade" styleClass="formularios2" required="true"
+			value="#{discipuloBean.logradouro.bairro.localidade.locNo}"
+			readonly="true" />
+		<h:outputLabel value="Estado:" styleClass="formulariosObrigatorio"
+			for="estado" />
+		<h:inputText id="estado" styleClass="formularios2" required="true"
+			value="#{discipuloBean.logradouro.bairro.localidade.estado.ufeNo}"
+			readonly="true" />
+	</h:panelGrid>
+
+
+</ui:composition>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+	<p:dialog header="Importar Foto" widgetVar="dlgFoto" resizable="true">
+		<div id="container">
+			<video id="videoElement" autoplay="true" width="320" height="240"> </video>
+<canvas id="can1" style="display:none;" />
+<canvas id="can2"  src="/GC/resources/imgs/sem_foto.png"/>
+		</div>
+		<script>
+var video = document.querySelector("#videoElement");
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+if (navigator.getUserMedia) {
+navigator.getUserMedia({video: true}, handleVideo, videoError);
+}
+function handleVideo(stream) {
+video.src = window.URL.createObjectURL(stream);
+}
+function videoError() {
+// do something
+}
+
+var canvas = document.querySelector("#can1");
+var ctx = canvas.getContext("2d");
+var localMediaStream = null;
+
+ function snapshot() {
+  if (localMediaStream) {
+    //ctx.drawImage(video, 0, 0);
+    ctx.drawImage(video,0, 0, 640,480, 0,0, 320,240);
+    // "image/webp" works in Chrome 18. In other browsers, this will fall back to image/png.
+  //  document.querySelector("#foto2").src = canvas.toDataURL("image/png");
+   // document.querySelector("#crop2_image").src = canvas.toDataURL("image/png");    
+   // document.querySelector("#crop2").Value = canvas.toDataURL("image/png");
+  }
+}
+
+//video.addEventListener("click", snapshot, false);
+
+// Not showing vendor prefixes or code that works cross-browser.
+navigator.getUserMedia({video: true}, function(stream) {
+  video.src = window.URL.createObjectURL(stream);
+  localMediaStream = stream;
+}, videoError);
+</script>
+
+<!-- Edição Canvas-->
+<script>
+
+
+$('#can1').Jcrop({
+	onChange : updatePreview,
+	onSelect : showCoords,
+	aspectRatio : 0
+});
+
+var imageObj = $("#can1")[0];
+var canvas = $("#can2")[0];
+var context = canvas.getContext("2d");
+function updatePreview(c) {
+	if(parseInt(c.w) > 0) {
+		// Show image preview
+		/* var imageObj = $("#can1")[0];
+		var canvas = $("#can2")[0];
+		 var context = canvas.getContext("2d");
+		 */
+		context.drawImage(imageObj, c.x, c.y, c.w, c.h, 0, 0, canvas.width, canvas.height);
+	}
+};
+function showCoords(c)
+{
+	  var can2 = document.querySelector("#can2");
+		var canvas = document.querySelector("#canFoto");
+		var ctx = canvas.getContext("2d");
+		 ctx.drawImage(can2,c.x, c.y, c.w, c.h, 0,0, canvas.width, canvas.height);
+		 document.querySelector("#:tabView1:foto").src = canvas.toDataURL("image/png");
+    // variables can be accessed here as
+    // c.x, c.y, c.x2, c.y2, c.w, c.h
+};
+function getFoto(c){
+	var can2 = document.querySelector("#can2");
+	var canvas = document.querySelector("#canFoto");
+	var ctx = canvas.getContext("2d");
+	 ctx.drawImage(can2,c.x, c.y, c.w, c.h, 0,0, canvas.width, canvas.height);
+//var imageObj = document.querySelector("#can2");
+//canvas = document.querySelector("#canFoto");
+//var ctx = canvas.getContext("2d");
+	// ctx.drawImage(imageObj,0, 0, 640,480, 0,0, 320,240);
+	 
+		//#{mBeanManterDiscipulo.setFoto(canvas.toDataURL("image/png"))};
+//		alert(#{mBeanManterDiscipulo.foto});
+//	var canvas = $("#can2")[0];
+	//var context = canvas.getContext("2d");
+	//document.querySelector("#canFoto").src = imageObj.toDataURL("image/png");
+	//alert(document.querySelector("#canFoto").src);
+	//document.querySelector("#tabView1:foto").src = canvas.toDataURL("image/png");
+	
+	
+}
+</script>
+
+<p:button onclick="return snapshot();" value="tirar Foto"/>
+<h:inputHidden value="#{mBeanManterDiscipulo.foto}" id="foto" />
+    <p:commandButton update=":formI:tabView1:foto" value="update Foto" process="@this foto"/>
+	</p:dialog>
+
+</ui:composition>
