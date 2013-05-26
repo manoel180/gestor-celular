@@ -11,11 +11,12 @@
 			authentication-failure-url="/pages/login/paginas/login.jsf?erro=true" />
 	
 		<intercept-url pattern="/pages/login/paginas/login.jsf" access="permitAll" />
-		<intercept-url pattern="/pages/index.jsf" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/pages/index.jsf" access="hasRole('ROLE_ADMINISTRADOR')" />
 		<intercept-url pattern="/index.jsp" access="isAuthenticated()" />
-		<intercept-url pattern="/pages/modCelular/**" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/pages/modSeguranca/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/pages/modCelular/**" access="hasRole('ROLE_ADMINISTRADOR')" />
+		<intercept-url pattern="/pages/modSeguranca/**" access="hasRole('ROLE_ADMINISTRADOR')" />
 		<intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
+		<intercept-url pattern="/resources/**" access="permitAll"/>
 		<intercept-url pattern="/**" access="denyAll" />
 			
 	</http>
@@ -28,9 +29,9 @@
 					SELECT login as username, senha as password, 'true' as enable FROM usuarios 
 					WHERE login=?"
 				authorities-by-username-query="
-					SELECT u.login as username, m.nome as authority FROM usuario_modulo as UM 
-					inner join Modulos as m on m.idModulos = UM.idModulos 
-					inner join Usuarios as u on u.idUsuarios = um.idUsuarios
+					SELECT u.login as username, m.nome as authority FROM usuario_modulo as um 
+					inner join modulos as m on m.idModulos = um.idModulos 
+					inner join usuarios as u on u.idUsuarios = um.idUsuarios
 					where u.login=?" />
 		</authentication-provider>
 	</authentication-manager>
