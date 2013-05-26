@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+	<!-- PROMPTS -->
+	<composite:attribute name="clientId" />
+	<composite:attribute name="valueOutText" />
+
+	<composite:attribute name="idButton" />
+	<composite:attribute name="renderExcluir"/>
+	<composite:attribute name="renderSalvar" default="true"/>
+	<composite:attribute name="labelSalvar" default="#{msgSistema.btnSalvar}"/>
+	<composite:attribute name="action" method-signature="java.lang.String action()"/>
+	<composite:attribute name="actionNovo" method-signature="java.lang.String action()"/>
+	<composite:attribute name="actionCancelar" method-signature="java.lang.String action()"/>
+	<composite:attribute name="actionExcluir" method-signature="java.lang.String action()"/>
+	<composite:attribute name="updatLimpar"/>
+	<composite:attribute name="valueinpText" />
+	<composite:attribute name="role" />
+	<composite:attribute name="right" />
+	<composite:attribute name="size" default="30" />
+</composite:interface>
+
+<composite:implementation>
+
+	<div id="#{cc.clientId}" style="position: relative; right: #{cc.attrs.right}; text-align: right;">
+		<p:separator id="separator" style="height: 1px;" />
+		   
+		<composite:insertChildren />
+		<p:commandButton value="#{cc.attrs.labelSalvar}" ajax="false" rendered="#{p:ifAnyGranted(cc.attrs.role) and (cc.attrs.renderSalvar)}"
+			id="#{cc.attrs.idButton}" action="#{cc.attrs.action}" process="@this" update=":msgs"
+			icon="ui-icon-check" styleClass="uiButtonSearch" />
+		<p:spacer width="5px"/>
+		<p:commandButton value="#{msgSistema.btnExcluir}" ajax="false" rendered="#{p:ifAnyGranted(cc.attrs.role) and (cc.attrs.renderExcluir)}"
+			id="#{cc.attrs.idButton}_exc" action="#{cc.attrs.actionExcluir}"
+			icon="ui-icon-closethick" styleClass="uiButtonSearch"/>
+		<p:spacer width="5px" rendered="#{cc.attrs.renderExcluir}" />
+		<p:commandButton value="#{msgSistema.btnCancelar}" ajax="false" 
+			process="@none" immediate="true"
+			action="#{cc.attrs.actionCancelar}" id="#{cc.attrs.idButton}_cls"
+			icon="ui-icon-cancel" styleClass="uiButtonSearch" async="true" />
+		
+	</div>
+</composite:implementation>
+</html>
