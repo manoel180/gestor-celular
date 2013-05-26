@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes"
+	template="/pages/geral/template/template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<p:tabView id="tabView1"  orientation="top">
+			<p:tab id="tabDadosPessoais" title="Dados Pessoais">
+				 <ui:include
+					src="/pages/modCelular/discipulos/paginas/dadosPessoais.xhtml" /> 				
+			</p:tab>
+		</p:tabView>
+		<br />
+		<p:tabView id="tabView" orientation="top" effect="slide">
+
+			<p:tab id="tbdocumentacao" title="Documentação">
+				<!-- <ui:include
+					src="/pages/modCelular/discipulos/paginas/documentacao.xhtml" /> -->
+			</p:tab>
+
+			<p:tab id="tbendereco" title="Endereço">
+				<!-- <ui:include
+					src="/pages/modCelular/discipulos/paginas/endereco.xhtml" /> -->
+			</p:tab>
+
+			<p:tab id="tbcontatos" title="Contatos">
+				<!-- <ui:include
+					src="/pages/modCelular/discipulos/paginas/contatos.xhtml" /> -->
+			</p:tab>
+			<p:tab id="tbMinisteriais" title="Dados Ministeriais">
+				<!-- <ui:include
+					src="/pages/modCelular/discipulos/paginas/dadosMinisteriais.xhtml" /> -->
+			</p:tab>
+			<p:tab id="tbformacaoeclesiastica" title="Formação Eclesiástica">
+				<!-- 
+					-->
+				<ui:include
+					src="/pages/modCelular/discipulos/paginas/formacaoEclesiastica.xhtml" /> 
+			</p:tab>
+			<p:tab id="tbencontros" title="Tipos de Encontro">
+				<!-- 
+					-->
+				<ui:include
+					src="/pages/modCelular/discipulos/paginas/encontros.xhtml" /> 
+			</p:tab>
+		</p:tabView>
+<ui:include src="../popUp/dlgFoto.xhtml"></ui:include>
+	</ui:define>
+</ui:composition>
