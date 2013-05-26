@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.div_Esquerda {
+	float: left;
+	position: relative;
+	width: 50%;
+}
+
+.div_Direita {
+	float: right;
+	position: relative;
+	width: 50%;
+}
+
+.componente_Espaco{
+	position: relative; padding-bottom: 5px;
+}
