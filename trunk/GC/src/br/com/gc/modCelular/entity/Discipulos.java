@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
 @Table(name = "discipulos")
 public class Discipulos implements java.io.Serializable {
@@ -23,56 +26,88 @@ public class Discipulos implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "disCod", unique = true, nullable = false)
-	private Integer disCod;
-	
+	@Column(name = "idDiscipulos")
+	private Integer idDiscipulos;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "disEstCivil", nullable = false)
+	@JoinColumn(name = "estadoCivil", nullable = false)
+	@ForeignKey(name="fk_estadoCivil")
 	private EstadoCivil estadocivil;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "disEndereco", nullable = false)
-//	private Logradouro logradouro;
-	
+
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "disEndereco", nullable = false)
+	// private Logradouro logradouro;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "disdiscipulador")
+	@JoinColumn(name = "discipulador")
+	@ForeignKey(name="fk_discipulador")
 	private Discipulos discipulador;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "disFunCod", nullable = false)
-	private FuncaoEclesiasticas funcaoeclesiasticas;
-	
+	@JoinColumn(name = "funcaoEclesiasticas", nullable = false)
+	@ForeignKey(name="fk_funcaoEclesiasticas")
+	private FuncaoEclesiasticas funcaoEclesiasticas;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "forCod", nullable = false)
-	private FormacaoAcademica formacaoacademica;
-	
+	@JoinColumn(name = "formacaoAcademica", nullable = false)
+	@ForeignKey(name="fk_formacaoAcademica")
+	private FormacaoAcademica formacaoAcademica;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "disGeracao")
+	@JoinColumn(name = "geracao")
+	@ForeignKey(name="fk_geracao")
 	private Geracoes geracoes;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "conjuge")
+	@ForeignKey(name="fk_conjuge")
+	private Discipulos conjuge;
+
+	@Column(name = "nomeConjuge", length = 100)
+	private String nomeConjuge;
+
+	@Column(name = "foto")
+	private Byte[] foto;
+
+	@Column(name = "nome", nullable = false, length = 100)
+	private String nome;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dataNascimento")
+	private Date dataNascimento;
+
+	@Column(name = "m12", nullable = false)
+	private Boolean m12;
+
+	@Column(name = "sexo", nullable = false)
+	@Enumerated
+	private Sexo sexo;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "igreja")
+	@ForeignKey(name="fk_igreja")
+	private Igrejas igreja;
+	
+	@Column(name = "email", nullable = false, length = 100)
+	private String email;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "disConjugecad")
-	private Discipulos conjuge;
+	@JoinColumn(name = "pai")
+	@ForeignKey(name="fk_pai")
+	private Filiacao pai;
 	
-	@Column(name = "disconjuge", length = 60)
-	private String disconjuge;
-	
-	@Column(name = "disfoto", length = 100)
-	private Byte[] disfoto;
-	
-	@Column(name = "disnome", nullable = false, length = 60)
-	private String disnome;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "disdatanascimento", length = 10)
-	private Date disdatanascimento;
-	
-	@Column(name = "dism12", nullable = false, length = 1)
-	private char dism12;
-	
-	@Column(name = "disSexo", nullable = false, length = 1)
-	private char disSexo;
-//	private List<Discipulos> discipulos;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "mae")
+	@ForeignKey(name="fk_mae" )
+	private Filiacao mae;
+
+	public Integer getIdDiscipulos() {
+		return idDiscipulos;
+	}
+
+	public void setIdDiscipulos(Integer idDiscipulos) {
+		this.idDiscipulos = idDiscipulos;
+	}
 
 	public EstadoCivil getEstadocivil() {
 		return estadocivil;
@@ -90,20 +125,20 @@ public class Discipulos implements java.io.Serializable {
 		this.discipulador = discipulador;
 	}
 
-	public FuncaoEclesiasticas getFuncaoeclesiasticas() {
-		return funcaoeclesiasticas;
+	public FuncaoEclesiasticas getFuncaoEclesiasticas() {
+		return funcaoEclesiasticas;
 	}
 
-	public void setFuncaoeclesiasticas(FuncaoEclesiasticas funcaoeclesiasticas) {
-		this.funcaoeclesiasticas = funcaoeclesiasticas;
+	public void setFuncaoEclesiasticas(FuncaoEclesiasticas funcaoEclesiasticas) {
+		this.funcaoEclesiasticas = funcaoEclesiasticas;
 	}
 
-	public FormacaoAcademica getFormacaoacademica() {
-		return formacaoacademica;
+	public FormacaoAcademica getFormacaoAcademica() {
+		return formacaoAcademica;
 	}
 
-	public void setFormacaoacademica(FormacaoAcademica formacaoacademica) {
-		this.formacaoacademica = formacaoacademica;
+	public void setFormacaoAcademica(FormacaoAcademica formacaoAcademica) {
+		this.formacaoAcademica = formacaoAcademica;
 	}
 
 	public Geracoes getGeracoes() {
@@ -122,74 +157,85 @@ public class Discipulos implements java.io.Serializable {
 		this.conjuge = conjuge;
 	}
 
-	public String getDisconjuge() {
-		return disconjuge;
+	public String getNomeConjuge() {
+		return nomeConjuge;
 	}
 
-	public void setDisconjuge(String disconjuge) {
-		this.disconjuge = disconjuge;
+	public void setNomeConjuge(String nomeConjuge) {
+		this.nomeConjuge = nomeConjuge;
 	}
 
-	public Byte[] getDisfoto() {
-		return disfoto;
+	public Byte[] getFoto() {
+		return foto;
 	}
 
-	public void setDisfoto(Byte[] disfoto) {
-		this.disfoto = disfoto;
+	public void setFoto(Byte[] foto) {
+		this.foto = foto;
 	}
 
-	public String getDisnome() {
-		return disnome;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDisnome(String disnome) {
-		this.disnome = disnome;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public Date getDisdatanascimento() {
-		return disdatanascimento;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDisdatanascimento(Date disdatanascimento) {
-		this.disdatanascimento = disdatanascimento;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
-	public char getDism12() {
-		return dism12;
+	public Boolean getM12() {
+		return m12;
 	}
 
-	public void setDism12(char dism12) {
-		this.dism12 = dism12;
+	public void setM12(Boolean m12) {
+		this.m12 = m12;
 	}
 
-	public char getDisSexo() {
-		return disSexo;
+	public Sexo getSexo() {
+		return sexo;
 	}
 
-	public void setDisSexo(char disSexo) {
-		this.disSexo = disSexo;
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 
-
-	public Igrejas getIgrejas() {
-		return igrejas;
+	public Igrejas getIgreja() {
+		return igreja;
 	}
 
-	public void setIgrejas(Igrejas igrejas) {
-		this.igrejas = igrejas;
+	public void setIgreja(Igrejas igreja) {
+		this.igreja = igreja;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igrejas_igrcod")
-	private Igrejas igrejas;
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Filiacao getPai() {
+		return pai;
+	}
+
+	public void setPai(Filiacao pai) {
+		this.pai = pai;
+	}
+
+	public Filiacao getMae() {
+		return mae;
+	}
+
+	public void setMae(Filiacao mae) {
+		this.mae = mae;
+	}
+
 	
-		
-	public Integer getDisCod() {
-		return this.disCod;
-	}
-
-	public void setDisCod(Integer disCod) {
-		this.disCod = disCod;
-	}
-
 }

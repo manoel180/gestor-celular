@@ -4,6 +4,8 @@ package br.com.gc.modCelular.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,13 +22,46 @@ public class Igrejas implements java.io.Serializable {
 	private static final long serialVersionUID = -4064637046755344412L;
 	
 	@Id
-	@Column(name = "igrcod", unique = true, nullable = false)
-	private int igrcod;
+	@Column(name = "idIgrejas")
+	private Integer idIgrejas;
 
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "igrpaises", nullable = false)
 //	private Paises paises;
 	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "responsavelMasculino", nullable = false)
+	private Discipulos resposavelMasculino;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "igrlogradouro", nullable = false)
+	//private Logradouro logradouro;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "responsavelFeminino", nullable = false)
+	private Discipulos responsavelFeminino;
+
+	@Column(name = "nome", nullable = false, length = 100)
+	private String nome;
+	
+	@Column(name = "logo", length = 100)
+	private Byte[] logo;
+	
+	@Column(name = "diaVencimento")	
+	private int diaVencimento;
+	
+	@Column(name = "status", length = 1)
+	@Enumerated(EnumType.ORDINAL)
+	private Status status;
+
+	public Integer getIdIgrejas() {
+		return idIgrejas;
+	}
+
+	public void setIdIgrejas(Integer idIgrejas) {
+		this.idIgrejas = idIgrejas;
+	}
+
 	public Discipulos getResposavelMasculino() {
 		return resposavelMasculino;
 	}
@@ -43,69 +78,36 @@ public class Igrejas implements java.io.Serializable {
 		this.responsavelFeminino = responsavelFeminino;
 	}
 
-	public Byte[] getIgrlogo() {
-		return igrlogo;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setIgrlogo(Byte[] igrlogo) {
-		this.igrlogo = igrlogo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public int getIgrdiavencimento() {
-		return igrdiavencimento;
+	public Byte[] getLogo() {
+		return logo;
 	}
 
-	public void setIgrdiavencimento(int igrdiavencimento) {
-		this.igrdiavencimento = igrdiavencimento;
+	public void setLogo(Byte[] logo) {
+		this.logo = logo;
 	}
 
-	public int getIgrstatus() {
-		return igrstatus;
+	public int getDiaVencimento() {
+		return diaVencimento;
 	}
 
-	public void setIgrstatus(int igrstatus) {
-		this.igrstatus = igrstatus;
+	public void setDiaVencimento(int diaVencimento) {
+		this.diaVencimento = diaVencimento;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igrresponsavelm", nullable = false)
-	private Discipulos resposavelMasculino;
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "igrlogradouro", nullable = false)
-	//private Logradouro logradouro;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igrresponsavelf", nullable = false)
-	private Discipulos responsavelFeminino;
-
-	@Column(name = "igrnome", nullable = false, length = 100)
-	private String igrnome;
-	
-	@Column(name = "igrlogo", length = 100)
-	private Byte[] igrlogo;
-	
-	@Column(name = "igrdiavencimento")	
-	private int igrdiavencimento;
-	
-	@Column(name = "igrstatus", length = 1)
-	private int igrstatus;
-
-	public int getIgrcod() {
-		return this.igrcod;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setIgrcod(int igrcod) {
-		this.igrcod = igrcod;
-	}
-
-	
-
-	public String getIgrnome() {
-		return this.igrnome;
-	}
-
-	public void setIgrnome(String igrnome) {
-		this.igrnome = igrnome;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	

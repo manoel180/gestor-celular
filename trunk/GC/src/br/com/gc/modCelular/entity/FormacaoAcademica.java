@@ -10,36 +10,36 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-/**
- */
+
 @Entity
-@Table(name = "formacaoacademica", uniqueConstraints = @UniqueConstraint(columnNames = "ForAcDescricao"))
+@Table(name = "formacao_academica", uniqueConstraints = @UniqueConstraint(columnNames = "descricao"))
 public class FormacaoAcademica implements java.io.Serializable {
 
 	private static final long serialVersionUID = 2566674309873411996L;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ForAcCod", unique = true, nullable = false)
-	private Integer forAcCod;
+	@Column(name = "idFormacaoAcademica")
+	private Integer idFormacaoAcademica;
 
-	@Column(name = "ForAcDescricao", unique = true, nullable = false, length = 60)
-	private String forAcDescricao;
+	@Column(name = "descricao", unique = true, nullable = false, length = 100)
+	private String descricao;
 
-	public Integer getForAcCod() {
-		return this.forAcCod;
+	public Integer getIdFormacaoAcademica() {
+		return idFormacaoAcademica;
 	}
 
-	public void setForAcCod(Integer forAcCod) {
-		this.forAcCod = forAcCod;
+	public void setIdFormacaoAcademica(Integer idFormacaoAcademica) {
+		this.idFormacaoAcademica = idFormacaoAcademica;
 	}
 
-	public String getForAcDescricao() {
-		return this.forAcDescricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setForAcDescricao(String forAcDescricao) {
-		this.forAcDescricao = forAcDescricao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
+	
 }
