@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import com.sun.istack.internal.NotNull;
 
 @Entity
-@Table(name = "USUARIOS")
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -7211436989743909901L;
@@ -35,8 +35,8 @@ public class Usuario implements Serializable {
 	@Column(name = "senha", nullable = false, length = 32)
 	private String senha;
 
-	@ManyToMany
-	@JoinTable(name = "Usuario_Modulo", joinColumns = @JoinColumn(name = "idUsuarios"), inverseJoinColumns = @JoinColumn(name = "idModulos"))
+	@ManyToMany 
+	@JoinTable(name = "usuario_modulo", joinColumns = @JoinColumn(name = "idUsuarios"), inverseJoinColumns = @JoinColumn(name = "idModulos"))
 	private List<Modulos> modulos;
 
 	public Integer getId() {

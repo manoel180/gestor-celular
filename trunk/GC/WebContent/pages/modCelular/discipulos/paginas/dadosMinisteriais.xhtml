@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+	<p:outputPanel id="panel">
+		<h:panelGrid columns="2" columnClasses="coluna1, coluna2">
+			<h:outputLabel value="Função Eclesiástica:"
+				styleClass="formulariosObrigatorio" for="funcaoeclesiastica" />
+			<h:selectOneMenu id="funcaoeclesiastica"
+				value="#{discipuloBean.funcaoeclesiasticas.funCod}"
+				requiredMessage="Função Eclesiástica é obrigatória" tabindex="18"
+				styleClass="formularios" required="true">
+				<f:selectItems var="funcEclesiastica"
+					itemLabel="#{funcEclesiastica.funDescricao}"
+					itemValue="#{funcEclesiastica.funCod}"
+					value="#{discipuloBean.listaFuncaoEclesiasticas}" />
+				<f:ajax render="senha" process="funcaoeclesiastica" event="change"
+					listener="#{discipuloBean.isDiscipulo}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Senha de Acesso:"
+				styleClass="formulariosObrigatorio" for="senha" />
+			<h:inputSecret id="senha" size="10" styleClass="formularios2"
+				required="true" redisplay="true"
+				value="#{discipuloBean.discipulos.disSenha}"
+				readonly="#{discipuloBean.editarSenha}"
+				requiredMessage="Senha é obrigatória" />
+			<h:outputLabel value="Discipulador:"
+				styleClass="formulariosObrigatorio" for="discipulador" />
+			<h:inputText id="discipulador" size="30" styleClass="formularios2"
+				required="true"
+				value="#{loginBean.discipuloSessao.discipulos.disnome}"
+				readonly="true" requiredMessage="Discipulador é obrigatório" />
+
+			<h:outputLabel value="M12?:" styleClass="formulariosObrigatorio"
+				for="m12" />
+			<h:selectOneRadio id="m12" styleClass="Texto_cpf_login"
+				value="#{discipuloBean.discipulos.dism12}"
+				requiredMessage="M12 é obrigatório">
+				<f:selectItem itemLabel="Sim" itemValue="s" />
+				<f:selectItem itemLabel="Não" itemValue="n" />
+				<f:ajax event="change" listener="#{discipuloBean.isM12}"
+					execute="m12" render="panel" />
+			</h:selectOneRadio>
+
+			<h:outputLabel value="Equipe:" styleClass="formulariosObrigatorio"
+				id="lblgeracao" rendered="#{discipuloBean.editarM12}" for="geracao" />
+			<h:selectOneMenu id="geracao" rendered="#{discipuloBean.editarM12}"
+				value="#{discipuloBean.geracoes.gerCod}"
+				requiredMessage="Geração é obrigatória" styleClass="formularios"
+				required="true">
+				<f:selectItems value="#{geracaoBean.geracaoCombo}" />
+			</h:selectOneMenu>
+
+
+		</h:panelGrid>
+	</p:outputPanel>
+</ui:composition>

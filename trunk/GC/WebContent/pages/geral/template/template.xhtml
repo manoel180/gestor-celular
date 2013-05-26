@@ -19,18 +19,23 @@
 		</f:facet>
 		<ui:insert name="css" />
 		<h:outputStylesheet name="estilo.css" library="css"/>
+		<h:outputStylesheet name="style.css" library="css"/>
 		<h:outputStylesheet name="estilo_prime.css" library="css"/>
 
 		<!-- Script de locale do componente calendar do primefaces 
 		<h:outputScript name="locale-primefaces.js" library="js" />
 		-->
+		<h:outputScript name="excanvas.js" library="js" />
+		<h:outputScript name="base64.js" library="js" />
+		<h:outputScript name="canvas2image.js" library="js" />
+		<h:outputScript name="jquery.Jcrop.js" library="js" />
 
 		<ui:insert name="head" />
 
 	</h:head>
 
 	<h:body>
-
+		<p:growl id="msg" showDetail="true" showSummary="false" life="5000" />
 		<p:layout fullPage="true">
 
 			<p:layoutUnit position="north" >
@@ -53,7 +58,7 @@
 			</p:layoutUnit>
 
 			<p:layoutUnit position="center">
-				<h:form>
+				<h:form id="formI" prependId="false">
 				<ui:insert name="conteudo"/>  
   
         </h:form>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:comp="http://java.sun.com/jsf/composite/componentes">
+
+	<div style="width: 100%">
+		<div class="div_Esquerda">
+			<comp:input id="nome" label="#{msgDiscipulo.lblNome}" value="#{mBeanManterDiscipulo.discipulo.nome}" maxlength="60" size="40" />
+			<comp:inputMask id="dt_nascimento" label="#{msgDiscipulo.lblDataNascimento}"
+				value="#{mBeanManterDiscipulo.discipulo.dataNascimento}" />
+		</div>
+		<div id="divFoto" class="div_Direita">
+			<center>
+				<p:graphicImage id="foto" width="120" height="116" cache="false" value="#{mBeanManterDiscipulo.foto}"/>
+					<canvas id="canFoto"  />
+					<br />
+				 <p:menuButton value="Options"> 
+				 	<p:menuitem value="Upload da foto" onclick="dlgFoto.show();"/>
+				 	<p:menuitem value="WebCam" onclick="dlgFoto.show();"/>
+				 </p:menuButton> 	
+			</center>
+		</div>
+	</div>
+
+	<p:fieldset legend="Filiação">
+		<comp:input id="mae" label="#{msgDiscipulo.lblMae}" value="#{mBeanManterDiscipulo.discipulo.mae.nome}"/>
+		<comp:input id="pai" label="#{msgDiscipulo.lblPai}" value="#{mBeanManterDiscipulo.discipulo.pai.nome}"/>
+	</p:fieldset>
+	<comp:comboBoxUtil label="#{msgDiscipulo.lblEstadoCivil}" rendered="false"
+		 value="#{mBeanManterDiscipulo.discipulo.estadocivil}"/>
+	<comp:input label="#{msgDiscipulo.lblConjuge}"
+		value="#{mBeanManterDiscipulo.discipulo.nomeConjuge}" />
+
+
+</ui:composition>
