@@ -1,64 +1,126 @@
 package br.com.gc.modCelular.mbean;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.servlet.ServletContext;
 
+import org.primefaces.model.CroppedImage;
+import org.primefaces.model.DualListModel;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 
 import br.com.gc.modCelular.entity.Discipulos;
+import br.com.gc.modCelular.entity.Encontros;
 import br.com.gc.modCelular.entity.EstadoCivil;
+import br.com.gc.modCelular.entity.Filiacao;
 import br.com.gc.modCelular.entity.FormacaoAcademica;
+import br.com.gc.modCelular.entity.FormacaoEclesiasticas;
 import br.com.gc.modCelular.service.ModCelularService;
+import br.com.gc.presentation.converter.ConverterUtil;
 import br.com.gc.presentation.util.MBeanManter;
-import br.com.gc.seguranca.entity.Usuario;
 
 /**
  * @author manoel
  */
 @Controller("mBeanManterDiscipulo")
 @Scope("request")
-public class MBeanManterDiscipulo extends MBeanManter{
+public class MBeanManterDiscipulo extends MBeanManter {
 
 	private static final long serialVersionUID = 6362037785360243314L;
 
 	@Resource
 	ModCelularService modCelularService;
-	
 
 	private List<EstadoCivil> listEstadoCivis;
 	private List<FormacaoAcademica> listFormacaoAcademicas;
 	private Discipulos discipulo;
 
+	private DualListModel<FormacaoEclesiasticas> listaFormacaoEclesiasticas;
+	private List<FormacaoEclesiasticas> sourceFormacaoEclesiasticas;
+	private List<FormacaoEclesiasticas> targetFormacaoEclesiasticas;
+	private ConverterUtil<FormacaoEclesiasticas> converterUtilFormacaoEclesiasticas;
+
+	private DualListModel<Encontros> listaEncontros;
+	private List<Encontros> sourceEncontros;
+	private List<Encontros> targetEncontros;
+	private ConverterUtil<Encontros> converterUtilEncontros;
+
+	private String foto;
+	private CroppedImage croppedImage;
+
 	@Override
 	@PostConstruct
 	public void inicializar() {
+		sourceFormacaoEclesiasticas = new ArrayList<FormacaoEclesiasticas>();
+		targetFormacaoEclesiasticas = new ArrayList<FormacaoEclesiasticas>();
+		listaFormacaoEclesiasticas = new DualListModel<>(
+				sourceFormacaoEclesiasticas, targetFormacaoEclesiasticas);
+
+		sourceEncontros = new ArrayList<Encontros>();
+		targetEncontros = new ArrayList<Encontros>();
+		listaEncontros = new DualListModel<>(sourceEncontros, targetEncontros);
+
+		converterUtilEncontros = new ConverterUtil<>(sourceEncontros);
+		converterUtilFormacaoEclesiasticas = new ConverterUtil<FormacaoEclesiasticas>(
+				sourceFormacaoEclesiasticas);
 		discipulo = new Discipulos();
-		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		discipulo.setMae(new Filiacao());
+		discipulo.setPai(new Filiacao());
+		discipulo.setEstadocivil(new EstadoCivil());
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		croppedImage = new CroppedImage();
 	}
+	public String crop(String teste) {
+		System.out.println(teste);
+        if(croppedImage == null)  
+            return null;  
+          
+//        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();  
+//        String newFileName = servletContext.getRealPath("") + File.separator + "images" + File.separator + "barca" + File.separator +"" + ".jpg";  
+//          
+//        FileImageOutputStream imageOutput;  
+//        try {  
+//            imageOutput = new FileImageOutputStream(new File(newFileName));  
+//            imageOutput.write(croppedImage.getBytes(), 0, croppedImage.getBytes().length);  
+//            imageOutput.close();  
+//        } catch (FileNotFoundException e) {  
+//            e.printStackTrace();  
+//        } catch (IOException e) {  
+//            e.printStackTrace();  
+//        }  
+          
+        return null;  
+    } 
 
 	@Override
 	public String editar() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public String salvar() {
-		// TODO Auto-generated method stub
+		System.out.println(foto);
 		return null;
 	}
+
 	@Override
 	public String cancelar() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public String excluir() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -68,7 +130,6 @@ public class MBeanManterDiscipulo extends MBeanManter{
 	/**
 	 * @return
 	 */
-	
 
 	public List<EstadoCivil> getListEstadoCivis() {
 		return listEstadoCivis;
@@ -93,6 +154,91 @@ public class MBeanManterDiscipulo extends MBeanManter{
 
 	public void setDiscipulo(Discipulos discipulo) {
 		this.discipulo = discipulo;
+	}
+
+	public DualListModel<FormacaoEclesiasticas> getListaFormacaoEclesiasticas() {
+		return listaFormacaoEclesiasticas;
+	}
+
+	public void setListaFormacaoEclesiasticas(
+			DualListModel<FormacaoEclesiasticas> listaFormacaoEclesiasticas) {
+		this.listaFormacaoEclesiasticas = listaFormacaoEclesiasticas;
+	}
+
+	public List<FormacaoEclesiasticas> getSourceFormacaoEclesiasticas() {
+		return sourceFormacaoEclesiasticas;
+	}
+
+	public void setSourceFormacaoEclesiasticas(
+			List<FormacaoEclesiasticas> sourceFormacaoEclesiasticas) {
+		this.sourceFormacaoEclesiasticas = sourceFormacaoEclesiasticas;
+	}
+
+	public List<FormacaoEclesiasticas> getTargetFormacaoEclesiasticas() {
+		return targetFormacaoEclesiasticas;
+	}
+
+	public void setTargetFormacaoEclesiasticas(
+			List<FormacaoEclesiasticas> targetFormacaoEclesiasticas) {
+		this.targetFormacaoEclesiasticas = targetFormacaoEclesiasticas;
+	}
+
+	public DualListModel<Encontros> getListaEncontros() {
+		return listaEncontros;
+	}
+
+	public void setListaEncontros(DualListModel<Encontros> listaEncontros) {
+		this.listaEncontros = listaEncontros;
+	}
+
+	public List<Encontros> getSourceEncontros() {
+		return sourceEncontros;
+	}
+
+	public void setSourceEncontros(List<Encontros> sourceEncontros) {
+		this.sourceEncontros = sourceEncontros;
+	}
+
+	public List<Encontros> getTargetEncontros() {
+		return targetEncontros;
+	}
+
+	public void setTargetEncontros(List<Encontros> targetEncontros) {
+		this.targetEncontros = targetEncontros;
+	}
+
+	public ConverterUtil<FormacaoEclesiasticas> getConverterUtilFormacaoEclesiasticas() {
+		return converterUtilFormacaoEclesiasticas;
+	}
+
+	public void setConverterUtilFormacaoEclesiasticas(
+			ConverterUtil<FormacaoEclesiasticas> converterUtilFormacaoEclesiasticas) {
+		this.converterUtilFormacaoEclesiasticas = converterUtilFormacaoEclesiasticas;
+	}
+
+	public ConverterUtil<Encontros> getConverterUtilEncontros() {
+		return converterUtilEncontros;
+	}
+
+	public void setConverterUtilEncontros(
+			ConverterUtil<Encontros> converterUtilEncontros) {
+		this.converterUtilEncontros = converterUtilEncontros;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public CroppedImage getCroppedImage() {
+		return croppedImage;
+	}
+
+	public void setCroppedImage(CroppedImage croppedImage) {
+		this.croppedImage = croppedImage;
 	}
 
 	// private boolean editar = true;
@@ -161,7 +307,7 @@ public class MBeanManterDiscipulo extends MBeanManter{
 	// private boolean editarM12 = false;
 	// private List<Discipulos> listaDiscipulos = new ArrayList<Discipulos>();
 	//
-	// //�?RVORE GERAÇÕES
+	// //�?RVORE GERAÇÕES
 	// private int index;
 	// private TreeNode root;
 	// private DefaultTreeNode treeNode;
@@ -419,7 +565,7 @@ public class MBeanManterDiscipulo extends MBeanManter{
 	// }
 	// else{
 	// for(ArvoreGeracoesNodos nodo: indexGeracoesNodos){
-	// //SE EXISTIR ESSE NODO DESSA GERAÇÃO J�? CRIADO
+	// //SE EXISTIR ESSE NODO DESSA GERAÇÃO J�? CRIADO
 	// if(nodo.getCodigoGeracao() == geracao.getGerCod()){
 	// existeGeracaoCriada = true;
 	// return nodo.getCodigoIndexNodo();

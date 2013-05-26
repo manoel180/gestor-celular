@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="MODULOS")
+@Table(name="modulos")
 public class Modulos implements Serializable{
 
 
@@ -26,7 +26,7 @@ public class Modulos implements Serializable{
 	@Column(name="idModulos")	
 	private Integer idModulos;
 
-	@Column(name="nome",nullable = false, length = 50,unique=true)
+	@Column(name="nome",nullable = false, length = 100,unique=true)
 	private String nome;
 
 	public Integer getIdModulos() {

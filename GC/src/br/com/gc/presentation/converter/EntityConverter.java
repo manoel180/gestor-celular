@@ -39,7 +39,7 @@ public class EntityConverter implements Converter {
 	}
 
 	/**
-	 * Obtém, via expression language, a classe do objeto
+	 * ObtÃ©m, via expression language, a classe do objeto
 	 * 
 	 * @param FacesContext
 	 *            facesContext
@@ -55,7 +55,7 @@ public class EntityConverter implements Converter {
 	}
 
 	/**
-	 * Retorna a representação em String do retorno do método anotado com @Id ou @EmbeddedId
+	 * Retorna a representaÃ§Ã£o em String do retorno do mÃ©todo anotado com @Id ou @EmbeddedId
 	 * do objeto.
 	 * 
 	 * @param Object
